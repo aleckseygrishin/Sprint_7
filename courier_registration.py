@@ -1,15 +1,12 @@
 import random
 import string
-import allure
-
-from scooter_api import ScooterApi
+import requests
 
 
 class CourierRegistration:
     # метод регистрации нового курьера возвращает список из логина и пароля
     # если регистрация не удалась, возвращает пустой список
     @staticmethod
-    @allure.step('Создаем рандомные данные для регистрации курьера')
     def register_new_courier_and_return_login_password_or_return_random_payload(registration_or_random_data):
         # метод генерирует строку, состоящую только из букв нижнего регистра, в качестве параметра передаём длину строки
         def generate_random_string(length):
@@ -37,7 +34,7 @@ class CourierRegistration:
         login_pass = []
 
         # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
-        response = ScooterApi.create_courier(payload)
+        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
 
         # если регистрация прошла успешно (код ответа 201), добавляем в список логин и пароль курьера
         if response.status_code == 201:

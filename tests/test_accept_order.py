@@ -1,5 +1,4 @@
 import allure
-import pytest
 
 from courier_registration import CourierRegistration
 from data import Data
